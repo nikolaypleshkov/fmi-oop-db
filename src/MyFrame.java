@@ -121,7 +121,7 @@ public class MyFrame extends JFrame {
         tabbedPane.add("Query 2", query2);
 
         getComboBox();
-        getComboBoxActors();
+        getComboBoxDirectors();
 
         tabbedPane.addChangeListener(new ChangeListener() {
             @Override
@@ -132,7 +132,7 @@ public class MyFrame extends JFrame {
                 switch (index){
                     case 0:
                         getComboBox();
-                        getComboBoxActors();
+                        getComboBoxDirectors();
                 }
             }
         });
@@ -155,9 +155,9 @@ public class MyFrame extends JFrame {
         midPanel.add(add);
         add.addActionListener(new AddAction());
         midPanel.add(edit);
-        edit.addActionListener(new EditActionMOVIESs());
+        edit.addActionListener(new EditActionMovies());
         midPanel.add(delete);
-        delete.addActionListener(new DeleteActionMOVIESs());
+        delete.addActionListener(new DeleteActionMovies());
 
         downPanel.add(scrollPane);
         scrollPane.setPreferredSize(new Dimension(450, 140));
@@ -181,15 +181,15 @@ public class MyFrame extends JFrame {
         directorUpPanel.add(netWorthTField);
 
         directorMidPanel.add(add1);
-        add1.addActionListener(new AddActionActors());
+        add1.addActionListener(new AddActionDirectors());
         directorMidPanel.add(edit1);
-        edit1.addActionListener((new EditActionActors()));
+        edit1.addActionListener((new EditActionDirector()));
         directorMidPanel.add(delete1);
-        delete1.addActionListener(new DeleteActionActors());
+        delete1.addActionListener(new DeleteActionDirector());
 
         directorDownPanel.add(jScrollPane1);
         jScrollPane1.setPreferredSize(new Dimension(450, 140));
-        table1.setModel(DBConnection.getAllDIRECTOR());
+        table1.setModel(DBConnection.getAllDirectors());
 
         genre.setLayout(new GridLayout(3, 1));
         genre.add(genreUpPanel);
@@ -209,7 +209,7 @@ public class MyFrame extends JFrame {
 
         genreDownPanel.add(jScrollPane2);
         jScrollPane2.setPreferredSize(new Dimension(450, 140));
-        table2.setModel(DBConnection.getAllgenre());
+        table2.setModel(DBConnection.getAllGenre());
 
         query1.setLayout(new GridLayout(3, 1));
         query1.add(query1UpPanel);
@@ -225,7 +225,7 @@ public class MyFrame extends JFrame {
 
         query1DownPanel.add(jScrollQ);
         jScrollQ.setPreferredSize(new Dimension(450, 140));
-        table1.setModel(DBConnection.getAllDIRECTOR());
+        table1.setModel(DBConnection.getAllDirectors());
 
         query2.setLayout(new GridLayout(3, 1));
         query2.add(query2UpPanel);
@@ -256,18 +256,18 @@ public class MyFrame extends JFrame {
         ageTF.setText("");
     }
 
-    public void resetGames() {
+    public void resetMovies() {
         titleTField.setText("");
         typeTField.setText("");
         yearTField.setText("");
         creatorTField.setText("");
     }
 
-    public void resetType() {
+    public void resetGenre() {
         nameTField.setText("");
     }
 
-    public void resetCreator() {
+    public void resetDirector() {
         fNameTField.setText("");
         lNameTField.setText("");
         nationalityTField.setText("");
@@ -294,7 +294,7 @@ public class MyFrame extends JFrame {
         }
     }
 
-    private void getComboBoxActors(){
+    private void getComboBoxDirectors(){
         connection = DBConnection.getConnected();
         try {
             String sql = "SELECT * FROM DIRECTOR";
@@ -372,10 +372,8 @@ public class MyFrame extends JFrame {
                 resetSimpleSort();
 
             } catch (SQLException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             } catch (Exception e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
 
@@ -420,7 +418,7 @@ public class MyFrame extends JFrame {
                 state.setInt(4, year);
                 state.execute();
                 table.setModel(DBConnection.getAllModel());
-                resetGames();
+                resetMovies();
 
             } catch (SQLException e1) {
 
@@ -430,7 +428,7 @@ public class MyFrame extends JFrame {
 
     }
 
-    class AddActionActors implements ActionListener {
+    class AddActionDirectors implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -467,8 +465,8 @@ public class MyFrame extends JFrame {
                 state.setInt(4, age);
                 state.setFloat(5, netWorth);
                 state.execute();
-                table1.setModel(DBConnection.getAllDIRECTOR());
-                resetCreator();
+                table1.setModel(DBConnection.getAllDirectors());
+                resetDirector();
             } catch (SQLException e1) {
 
                 e1.printStackTrace();
@@ -496,8 +494,8 @@ public class MyFrame extends JFrame {
                 state.setString(1, name);
 
                 state.execute();
-                table2.setModel(DBConnection.getAllgenre());
-                resetType();
+                table2.setModel(DBConnection.getAllGenre());
+                resetGenre();
 
             } catch (SQLException e1) {
 
@@ -526,8 +524,8 @@ public class MyFrame extends JFrame {
                 state = connection.prepareStatement(sql);
 
                 state.execute();
-                table2.setModel(DBConnection.getAllgenre());
-                resetType();
+                table2.setModel(DBConnection.getAllGenre());
+                resetGenre();
 
             } catch (SQLException e1) {
 
@@ -537,7 +535,7 @@ public class MyFrame extends JFrame {
 
     }
 
-    class EditActionMOVIESs implements ActionListener {
+    class EditActionMovies implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -576,7 +574,7 @@ public class MyFrame extends JFrame {
 
                 state.execute();
                 table.setModel(DBConnection.getAllModel());
-                resetGames();
+                resetMovies();
             } catch (SQLException e1) {
 
                 e1.printStackTrace();
@@ -584,7 +582,7 @@ public class MyFrame extends JFrame {
         }
     }
 
-    class EditActionActors implements ActionListener {
+    class EditActionDirector implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -618,8 +616,8 @@ public class MyFrame extends JFrame {
                PreparedStatement state = connection.prepareStatement(sql);
 
                 state.execute();
-                table1.setModel(DBConnection.getAllDIRECTOR());
-                resetCreator();
+                table1.setModel(DBConnection.getAllDirectors());
+                resetDirector();
             } catch (SQLException e1) {
 
                 e1.printStackTrace();
@@ -628,7 +626,7 @@ public class MyFrame extends JFrame {
         }
     }
 
-    class DeleteActionMOVIESs implements ActionListener {
+    class DeleteActionMovies implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -655,7 +653,7 @@ public class MyFrame extends JFrame {
 
     }
 
-    class DeleteActionActors implements ActionListener {
+    class DeleteActionDirector implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -672,7 +670,7 @@ public class MyFrame extends JFrame {
                 state = connection.prepareStatement(sql);
 
                 state.execute();
-                table1.setModel(DBConnection.getAllDIRECTOR());
+                table1.setModel(DBConnection.getAllDirectors());
 
             } catch (SQLException e1) {
 
@@ -700,7 +698,7 @@ public class MyFrame extends JFrame {
                 state = connection.prepareStatement(sql);
 
                 state.execute();
-                table2.setModel(DBConnection.getAllgenre());
+                table2.setModel(DBConnection.getAllGenre());
 
             } catch (SQLException e1) {
 

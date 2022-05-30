@@ -66,7 +66,7 @@ public class DBConnection {
 
     }
 
-    public static MyModel getAllDIRECTOR() {
+    public static MyModel getAllDirectors() {
 
         conn = getConnected();
         String sql = "select * from director;";
@@ -89,7 +89,7 @@ public class DBConnection {
 
     }
 
-    public static MyModel getAllgenre() {
+    public static MyModel getAllGenre() {
 
         conn = getConnected();
         String sql = "select * from GENRE;";
