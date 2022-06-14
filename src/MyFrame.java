@@ -117,8 +117,8 @@ public class MyFrame extends JFrame {
         tabbedPane.add("Movie", movie);
         tabbedPane.add("Director", director);
         tabbedPane.add("Genre", genre);
-        tabbedPane.add("Query 1", query1);
-        tabbedPane.add("Query 2", query2);
+        tabbedPane.add("Search 1", query1);
+        tabbedPane.add("Search 2", query2);
 
         getComboBox();
         getComboBoxDirectors();
@@ -319,7 +319,7 @@ public class MyFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             int year = 0;
-            int type = Integer.parseInt(typeT.getText());
+            String type = typeT.getText();
 
             try{
                 year = Integer.parseInt(yearT.getText());
@@ -330,10 +330,6 @@ public class MyFrame extends JFrame {
             connection = DBConnection.getConnected();
             String sql = "SELECT TITLE,YEAR, genre FROM GENRE G JOIN MOVIES M ON G.GENRE_ID = M.GENRE_ID WHERE YEAR="
                     + year + "AND genre='" + type + "';";
-            //                state = connection.prepareStatement(sql);
-//                 state.setInt(1, year);
-//                 state.setString(2, type);
-//                state.executeQuery();
             tableQuery1.setModel(DBConnection.getComplexSorting(year, type));
             resetComplexSort();
 
@@ -660,14 +656,14 @@ public class MyFrame extends JFrame {
 
             String name = (table1.getValueAt(table1.getSelectedRow(), 0)).toString();
             String sql = "DELETE FROM director " + "WHERE director_id='" + name + "';";
-
+            String sql2 = "DELETE FROM MOVIES " + "WHERE director_id='" + name + "';";
             connection = DBConnection.getConnected();
             if (connection == null) {
                 return;
             }
 
             try {
-                state = connection.prepareStatement(sql);
+                state = connection.prepareStatement(sql2);
 
                 state.execute();
                 table1.setModel(DBConnection.getAllDirectors());
@@ -676,6 +672,18 @@ public class MyFrame extends JFrame {
 
                 e1.printStackTrace();
             }
+            try {
+                state = connection.prepareStatement(sql);
+
+            state.execute();
+            table1.setModel(DBConnection.getAllDirectors());
+
+            table.setModel(DBConnection.getAllModel());
+
+        } catch (SQLException e1) {
+
+            e1.printStackTrace();
+        }
         }
 
     }

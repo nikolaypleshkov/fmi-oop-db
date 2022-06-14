@@ -43,28 +43,6 @@ public class DBConnection {
         return model;
 
     }
-    public static MyModel getAll() {
-
-        conn = getConnected();
-        String sql = "Select * from GENRE;";
-        ResultSet result = null;
-        MyModel model = null;
-
-        try {
-            PreparedStatement state = conn.prepareStatement(sql);
-            result = state.executeQuery();
-            model = new MyModel(result);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return model;
-
-    }
 
     public static MyModel getAllDirectors() {
 
@@ -112,30 +90,7 @@ public class DBConnection {
 
     }
 
-    public static MyModel getAllVisible() {
-
-        conn = getConnected();
-        String sql = "SELECT GAME_ID,TITLE,year,FNAME,LNAME FROM movies G JOIN DIRECTOR C ON G.DIRECTOR_ID = C.DIRECTOR_ID JOIN genre T ON G.genre_ID = T.genre_ID";
-        ResultSet result = null;
-        MyModel model = null;
-
-        try {
-            PreparedStatement state = conn.prepareStatement(sql);
-            result = state.executeQuery();
-            model = new MyModel(result);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return model;
-
-    }
-
-    public static MyModel getComplexSorting(int created,int genre) {
+    public static MyModel getComplexSorting(int created,String genre) {
 
         conn = getConnected();
 
